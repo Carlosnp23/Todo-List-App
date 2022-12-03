@@ -7,12 +7,11 @@
 
 import CoreData
 
-@objc(Notes)
-class Notes: NSManagedObject {
-    
+@objc(Note)
+class Note: NSManagedObject
+{
     @NSManaged var id: NSNumber!
     @NSManaged var title: String!
     @NSManaged var desc: String!
-    @NSManaged var deleteDate: Date!
-    
+    @NSManaged var deletedDate: Date?
 }

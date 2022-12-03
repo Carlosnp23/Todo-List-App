@@ -8,11 +8,24 @@
 import UIKit
 import CoreData
 
-var todoList = [Notes] ()
+var noteList = [Note]()
 
-class NotesTableView: UITableViewController {
-    
+class NoteTableView: UITableViewController
+{
     var firstLoad = true
+    
+    func nonDeletedNotes() -> [Note]
+    {
+        var noDeleteNoteList = [Note]()
+        for note in noteList
+        {
+            if(note.deletedDate == nil)
+            {
+                noDeleteNoteList.append(note)
+            }
+        }
+        return noDeleteNoteList
+    }
     
     override func viewDidLoad()
     {
@@ -21,13 +34,13 @@ class NotesTableView: UITableViewController {
             firstLoad = false
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
             do {
                 let results:NSArray = try context.fetch(request) as NSArray
                 for result in results
                 {
-                    let note = result as! Notes
-                    todoList.append(note)
+                    let note = result as! Note
+                    noteList.append(note)
                 }
             }
             catch
@@ -38,26 +51,27 @@ class NotesTableView: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
-    UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         
-        let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCellID", for: indexPath) as! NotesCell
-        
-        let thisNote: Notes!
-        thisNote = todoList[indexPath.row]
+        let thisNote: Note!
+        thisNote = nonDeletedNotes()[indexPath.row]
         
         noteCell.lblTitle.text = thisNote.title
         noteCell.lblDescription.text = thisNote.desc
+        
         return noteCell
-                
-    }
-
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList.count
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return nonDeletedNotes().count
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
         tableView.reloadData()
     }
     
@@ -74,8 +88,8 @@ class NotesTableView: UITableViewController {
             
             let noteDetail = segue.destination as? ViewController
             
-            let selectedNote : Notes!
-            selectedNote = todoList[indexPath.row]
+            let selectedNote : Note!
+            selectedNote = nonDeletedNotes()[indexPath.row]
             noteDetail!.selectedNote = selectedNote
             
             tableView.deselectRow(at: indexPath, animated: true)

@@ -7,14 +7,9 @@
 
 import UIKit
 
-class NotesCell: UITableViewCell {
+class NoteCell: UITableViewCell {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
-    
-    @IBOutlet weak var btnEdit: UIButton!
-    @IBAction func btnEdit(_ sender: UIButton) {
-    }
-    
     
 }
