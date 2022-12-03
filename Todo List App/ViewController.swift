@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtDescription: UITextView!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var selectedNote: Note? = nil
     
@@ -36,6 +37,14 @@ class ViewController: UIViewController {
             newNote.id = noteList.count as NSNumber
             newNote.title = txtTitle.text
             newNote.desc = txtDescription.text
+        
+        // Creates Dates to save in coredata
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd / MMM / yyyy  h:mm a"
+            
+        newNote.date = dateFormatter.string(from: datePicker.date)
+            
+        
             do
             {
                 try context.save()
@@ -83,6 +92,13 @@ class ViewController: UIViewController {
                     {
                         note.title = self.txtTitle.text
                         note.desc = self.txtDescription.text
+                        
+                        // Update Dates to save in coredata
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "dd / MMM / yyyy  h:mm a"
+                        
+                        note.date = dateFormatter.string(from: self.datePicker.date)
+        
                         try context.save()
                         
                         let alertController = UIAlertController(title: "Updated Note", message: "", preferredStyle: .alert)

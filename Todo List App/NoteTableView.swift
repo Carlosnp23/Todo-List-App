@@ -60,6 +60,8 @@ class NoteTableView: UITableViewController
         
         noteCell.lblTitle.text = thisNote.title
         noteCell.lblDescription.text = thisNote.desc
+        noteCell.lblDate.text = thisNote.date
+
         
         return noteCell
     }
