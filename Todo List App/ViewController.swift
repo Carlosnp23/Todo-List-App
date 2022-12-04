@@ -81,7 +81,7 @@ class ViewController: UIViewController {
 
             newNote.title = txtTitle.text
             newNote.desc = txtDescription.text
-            newNote.date = myDate
+            newNote.dueDate = myDate
             newNote.isCompleted = false
             
             
@@ -166,7 +166,7 @@ class ViewController: UIViewController {
                         {
                             note.title = self.txtTitle.text
                             note.desc = self.txtDescription.text
-                            note.date = myDate
+                            note.dueDate = myDate
                             note.isCompleted = isCompleted.boolValue
                             
                             try context.save()
