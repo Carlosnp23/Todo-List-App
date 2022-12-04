@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtDescription: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var switchIsCompleted: UISwitch!
     
     @IBOutlet weak var lblTitleError: UILabel!
     @IBOutlet weak var lblDescriptionError: UILabel!
@@ -76,6 +77,7 @@ class ViewController: UIViewController {
             newNote.title = txtTitle.text
             newNote.desc = txtDescription.text
             newNote.date = myDate
+            newNote.isCompleted = false
             
             
             do
@@ -107,6 +109,8 @@ class ViewController: UIViewController {
     
     @IBAction func btnUpdate(_ sender: Any) {
         
+        var isCompleted = NSString(string: "true")
+        
         // Update Dates to save in coredata
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd / MMM / yyyy  h:mm a"
@@ -123,6 +127,9 @@ class ViewController: UIViewController {
             self.lblTitleError.text = "Correct"
             self.lblDescriptionError.text = "Correct"
             self.lblDateError.text = "The Date should not be empty"
+        }
+        else if (switchIsCompleted.isEnabled == false) {
+            isCompleted = NSString(string: "false")
         }
         else {
             self.lblTitleError.text = "Correct"
@@ -150,12 +157,18 @@ class ViewController: UIViewController {
                             note.title = self.txtTitle.text
                             note.desc = self.txtDescription.text
                             note.date = myDate
+                            note.isCompleted = isCompleted.boolValue
                             
                             try context.save()
                             
                             let alertController = UIAlertController(title: "Updated Note", message: "", preferredStyle: .alert)
                             // Create OK button
                             let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                                
+                                func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+                                    let pass = segue.destination as! NoteTableView
+                                    pass.compl = String(isCompleted)
+                                }
                                 
                                 // Code in this block will trigger when OK button tapped.
                                 self.navigationController?.popViewController(animated: true)
@@ -272,5 +285,19 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func switchIsCompleted(_ sender: UISwitch) {
+        
+        let attributedString = NSMutableAttributedString(string: txtTitle.text!)
+
+        if (sender.isOn) {
+            attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
+        }
+        else {
+            let attributedString = NSMutableAttributedString(string: txtTitle.text!)
+            attributedString.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, attributedString.length-1))
+        }
+        txtTitle.attributedText = attributedString
+    }
     
 }

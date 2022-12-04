@@ -196,6 +196,9 @@
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-kt-nxh">
                                 <rect key="frame" x="295" y="591" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchIsCompleted:" destination="BYZ-38-t0r" eventType="valueChanged" id="YK2-Fl-TEX"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8d-IZ-a8A">
                                 <rect key="frame" x="49" y="213" width="68" height="21"/>
@@ -282,6 +285,7 @@
                         <outlet property="lblDateError" destination="ckv-Pe-vqV" id="gcU-bk-21B"/>
                         <outlet property="lblDescriptionError" destination="BtW-Li-8JR" id="JKc-Ok-sMa"/>
                         <outlet property="lblTitleError" destination="j8d-IZ-a8A" id="ts4-A3-GHF"/>
+                        <outlet property="switchIsCompleted" destination="Icf-kt-nxh" id="onw-Sb-4MC"/>
                         <outlet property="txtDescription" destination="Rh9-YE-bPD" id="QnV-YD-cfy"/>
                         <outlet property="txtTitle" destination="X1Y-5l-YIR" id="TZk-Ok-Hyx"/>
                     </connections>
@@ -346,8 +350,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-zG-tnj">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-zG-tnj">
                                 <rect key="frame" x="295" y="593" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchIsCompleted:" destination="rfI-IE-WL2" eventType="valueChanged" id="2pb-Sr-dEL"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQJ-hR-X9x">
                                 <rect key="frame" x="49" y="595" width="120" height="23"/>
@@ -355,7 +362,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhL-lf-Iqg">
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="update" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhL-lf-Iqg">
                                 <rect key="frame" x="49" y="759" width="117" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="rectangle.and.pencil.and.ellipsis" catalog="system" title="Update">
@@ -462,6 +469,7 @@
                         <outlet property="lblDateError" destination="qgu-xA-eFG" id="J2S-gf-xQH"/>
                         <outlet property="lblDescriptionError" destination="aTH-kD-bRs" id="FCG-pf-7Gp"/>
                         <outlet property="lblTitleError" destination="CDr-9u-P0K" id="abP-1E-fAg"/>
+                        <outlet property="switchIsCompleted" destination="ezh-zG-tnj" id="CF8-D5-P8X"/>
                         <outlet property="txtDescription" destination="wrY-CY-UnW" id="ZdL-96-naU"/>
                         <outlet property="txtTitle" destination="vCi-6j-Yef" id="x4j-zH-DMa"/>
                     </connections>
