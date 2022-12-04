@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         
         datePicker.isHidden = true
         datePicker.isEnabled = false
+        lblDateError.isHidden = true
         
         if(selectedNote != nil)
         {
@@ -42,9 +43,24 @@ class ViewController: UIViewController {
             txtDescription.text = selectedNote?.desc
             datePicker.isHidden = false
             datePicker.isEnabled = true
+            lblDateError.isHidden = false
         }
     }
 
+    
+    @IBAction func switchDate(_ sender: UISwitch) {
+        
+        if (sender.isOn) {
+            datePicker.isEnabled = true
+            datePicker.isHidden = false
+            lblDateError.isHidden = false
+        }
+        else {
+            datePicker.isEnabled = false
+            datePicker.isHidden = true
+            lblDateError.isHidden = true
+        }
+    }
 
     @IBAction func saveAction(_ sender: Any)
     {
@@ -68,20 +84,20 @@ class ViewController: UIViewController {
             lblTitleError.text = "Correct"
             lblDescriptionError.text = "The Description should not be empty"
         }
-        else if (datePicker.isHidden == true || datePicker.isEnabled == false) {
-            lblTitleError.text = "Correct"
-            lblDescriptionError.text = "Correct"
-            lblDateError.text = "The Date should not be empty"
-        }
         else {
             lblTitleError.text = "Correct"
             lblDescriptionError.text = "Correct"
-            lblDateError.text = "Correct"
 
 
             newNote.title = txtTitle.text
             newNote.desc = txtDescription.text
-            newNote.dueDate = myDate
+            
+            if (datePicker.isEnabled == true) {
+                newNote.dueDate = myDate
+            } else {
+                newNote.dueDate = ""
+            }
+            
             newNote.isCompleted = false
             
             
@@ -129,11 +145,6 @@ class ViewController: UIViewController {
             self.lblTitleError.text = "Correct"
             self.txtDescription.text = "The Description should not be empty"
         }
-        else if (self.datePicker.isHidden == true || self.datePicker.isEnabled == false) {
-            self.lblTitleError.text = "Correct"
-            self.lblDescriptionError.text = "Correct"
-            self.lblDateError.text = "The Date should not be empty"
-        }
         else {
             self.lblTitleError.text = "Correct"
             self.lblDescriptionError.text = "Correct"
@@ -166,7 +177,13 @@ class ViewController: UIViewController {
                         {
                             note.title = self.txtTitle.text
                             note.desc = self.txtDescription.text
-                            note.dueDate = myDate
+                            
+                            if (self.datePicker.isEnabled == true) {
+                                note.dueDate = myDate
+                            } else {
+                                note.dueDate = ""
+                            }
+                            
                             note.isCompleted = isCompleted.boolValue
                             
                             try context.save()
@@ -278,19 +295,6 @@ class ViewController: UIViewController {
         
         navigationController?.popViewController(animated: true)
 
-    }
-    
-    
-    @IBAction func switchDate(_ sender: UISwitch) {
-        
-        if (sender.isOn) {
-            datePicker.isEnabled = true
-            datePicker.isHidden = false
-        }
-        else {
-            datePicker.isEnabled = false
-            datePicker.isHidden = true
-        }
     }
     
 }
