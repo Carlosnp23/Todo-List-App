@@ -55,13 +55,13 @@
                                         <constraint firstAttribute="bottom" secondItem="T7Y-qp-R21" secondAttribute="bottom" constant="17" id="7ly-dh-iAI"/>
                                         <constraint firstItem="U5G-fC-c7u" firstAttribute="leading" secondItem="uj4-EA-jPM" secondAttribute="trailing" constant="8.9999999999999929" id="81w-wZ-7JX"/>
                                         <constraint firstAttribute="bottom" secondItem="e91-kZ-Ok1" secondAttribute="bottom" constant="11" id="AlS-r5-eu5"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U5G-fC-c7u" secondAttribute="trailing" constant="10" id="DXm-Jh-oof"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U5G-fC-c7u" secondAttribute="trailing" constant="20" id="DXm-Jh-oof"/>
                                         <constraint firstItem="U5G-fC-c7u" firstAttribute="top" secondItem="CiC-gd-xsO" secondAttribute="top" constant="5" id="FMV-Fo-9sT"/>
                                         <constraint firstAttribute="bottom" secondItem="uj4-EA-jPM" secondAttribute="bottom" constant="39" id="FeI-zP-9e4"/>
-                                        <constraint firstAttribute="trailing" secondItem="T7Y-qp-R21" secondAttribute="trailing" constant="256.66666666666669" id="QDV-AX-MUq"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T7Y-qp-R21" secondAttribute="trailing" constant="20" id="QDV-AX-MUq"/>
                                         <constraint firstItem="T7Y-qp-R21" firstAttribute="width" secondItem="U5G-fC-c7u" secondAttribute="width" multiplier="1.85816" id="RVf-2F-qbR"/>
                                         <constraint firstItem="e91-kZ-Ok1" firstAttribute="leading" secondItem="uj4-EA-jPM" secondAttribute="trailing" constant="9" id="Y09-7x-5ts"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="e91-kZ-Ok1" secondAttribute="trailing" constant="10" id="ZRO-Qk-Y8i"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="e91-kZ-Ok1" secondAttribute="trailing" constant="20" id="ZRO-Qk-Y8i"/>
                                         <constraint firstItem="T7Y-qp-R21" firstAttribute="leading" secondItem="uj4-EA-jPM" secondAttribute="trailing" constant="8" symbolic="YES" id="d5S-vZ-Pjh"/>
                                         <constraint firstItem="e91-kZ-Ok1" firstAttribute="top" secondItem="T7Y-qp-R21" secondAttribute="bottom" constant="-15" id="ekB-Yi-K6R"/>
                                         <constraint firstItem="U5G-fC-c7u" firstAttribute="leading" secondItem="CiC-gd-xsO" secondAttribute="leading" constant="50" id="evh-An-EtH"/>
@@ -196,9 +196,6 @@
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-kt-nxh">
                                 <rect key="frame" x="295" y="591" width="51" height="31"/>
-                                <connections>
-                                    <action selector="switchIsCompleted:" destination="BYZ-38-t0r" eventType="valueChanged" id="YK2-Fl-TEX"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8d-IZ-a8A">
                                 <rect key="frame" x="49" y="213" width="68" height="21"/>
@@ -350,11 +347,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-zG-tnj">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-zG-tnj">
                                 <rect key="frame" x="295" y="593" width="51" height="31"/>
-                                <connections>
-                                    <action selector="switchIsCompleted:" destination="rfI-IE-WL2" eventType="valueChanged" id="2pb-Sr-dEL"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQJ-hR-X9x">
                                 <rect key="frame" x="49" y="595" width="120" height="23"/>

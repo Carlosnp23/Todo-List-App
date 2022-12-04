@@ -61,6 +61,14 @@ class NoteTableView: UITableViewController
         noteCell.lblTitle.text = thisNote.title
         noteCell.lblDescription.text = thisNote.desc
         noteCell.lblDate.text = thisNote.date
+        
+        if (thisNote.isCompleted == true) {
+            let attributedString = NSMutableAttributedString(string: noteCell.lblTitle.text!)
+            attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
+            noteCell.lblTitle.attributedText = attributedString
+
+            
+        }
 
         return noteCell
     }

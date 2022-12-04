@@ -43,10 +43,9 @@ class ViewController: UIViewController {
     @IBAction func saveAction(_ sender: Any)
     {
         // Creates Dates to save in coredata
-        var myDate = ""
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd / MMM / yyyy  h:mm a"
-        myDate = dateFormatter.string(from: datePicker.date)
+        let myDate = dateFormatter.string(from: datePicker.date)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
@@ -104,17 +103,18 @@ class ViewController: UIViewController {
                 print("context save error")
             }
         }
+        print(newNote.isCompleted);
         
     }
     
     @IBAction func btnUpdate(_ sender: Any) {
         
-        var isCompleted = NSString(string: "true")
+        var isCompleted = NSString(string: "false")
         
         // Update Dates to save in coredata
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd / MMM / yyyy  h:mm a"
-        var myDate = dateFormatter.string(from: self.datePicker.date)
+            let myDate = dateFormatter.string(from: self.datePicker.date)
         
         if (self.txtTitle.text!.isEmpty) {
             self.lblTitleError.text = "The Title should not be empty"
@@ -128,13 +128,17 @@ class ViewController: UIViewController {
             self.lblDescriptionError.text = "Correct"
             self.lblDateError.text = "The Date should not be empty"
         }
-        else if (switchIsCompleted.isEnabled == false) {
-            isCompleted = NSString(string: "false")
-        }
         else {
             self.lblTitleError.text = "Correct"
             self.lblDescriptionError.text = "Correct"
             self.lblDateError.text = "Correct"
+            print(isCompleted);
+
+            if (switchIsCompleted.isOn == true) {
+                isCompleted = NSString(string: "true")
+                print(isCompleted);
+
+            }
             
             let alertController = UIAlertController(title: "Update", message: "Are you sure you want to Update this Note?", preferredStyle: .alert)
             
@@ -164,11 +168,6 @@ class ViewController: UIViewController {
                             let alertController = UIAlertController(title: "Updated Note", message: "", preferredStyle: .alert)
                             // Create OK button
                             let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                                
-                                func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                                    let pass = segue.destination as! NoteTableView
-                                    pass.compl = String(isCompleted)
-                                }
                                 
                                 // Code in this block will trigger when OK button tapped.
                                 self.navigationController?.popViewController(animated: true)
@@ -202,6 +201,9 @@ class ViewController: UIViewController {
             // Present Dialog message
             self.present(alertController, animated: true, completion:nil)
         }
+        
+        print(isCompleted);
+
         
     }
     
@@ -283,21 +285,6 @@ class ViewController: UIViewController {
             datePicker.isEnabled = false
             datePicker.isHidden = true
         }
-    }
-    
-    
-    @IBAction func switchIsCompleted(_ sender: UISwitch) {
-        
-        let attributedString = NSMutableAttributedString(string: txtTitle.text!)
-
-        if (sender.isOn) {
-            attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
-        }
-        else {
-            let attributedString = NSMutableAttributedString(string: txtTitle.text!)
-            attributedString.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, attributedString.length-1))
-        }
-        txtTitle.attributedText = attributedString
     }
     
 }

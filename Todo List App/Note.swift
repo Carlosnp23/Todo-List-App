@@ -14,6 +14,6 @@ class Note: NSManagedObject
     @NSManaged var title: String!
     @NSManaged var desc: String!
     @NSManaged var deletedDate: Date?
-    @NSManaged var date: String?
+    @NSManaged var dueDate: String?
     @NSManaged var isCompleted: Bool
 }
