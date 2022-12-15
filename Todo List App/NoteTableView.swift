@@ -19,6 +19,7 @@ var noteList = [Note]()
 class NoteTableView: UITableViewController
 {
     var firstLoad = true
+    let contex = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func nonDeletedNotes() -> [Note]
     {
@@ -56,13 +57,13 @@ class NoteTableView: UITableViewController
         }
     }
     
-    
+    //Function for displaying notes on screen
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         
         let thisNote: Note!
-        thisNote = nonDeletedNotes()[indexPath.row]
+        thisNote = noteList[indexPath.row]
         
         noteCell.lblTitle.text = thisNote.title
         noteCell.lblDescription.text = thisNote.desc
@@ -72,17 +73,17 @@ class NoteTableView: UITableViewController
             let attributedString = NSMutableAttributedString(string: noteCell.lblTitle.text!)
             attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
             noteCell.lblTitle.attributedText = attributedString
-
+            
             
         }
-
+        
         return noteCell
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return nonDeletedNotes().count
+        return noteList.count
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -90,11 +91,13 @@ class NoteTableView: UITableViewController
         tableView.reloadData()
     }
     
+    //Edit function
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         self.performSegue(withIdentifier: "editNote", sender: self)
     }
     
+    //Go to Detail and Edit function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if(segue.identifier == "editNote")
@@ -104,12 +107,65 @@ class NoteTableView: UITableViewController
             let noteDetail = segue.destination as? ViewController
             
             let selectedNote : Note!
-            selectedNote = nonDeletedNotes()[indexPath.row]
+            selectedNote = noteList[indexPath.row]
             noteDetail!.selectedNote = selectedNote
             
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+            -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+                // delete the item here
+                
+                noteList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.reloadData()
+
+                completionHandler(true)
+            }
+            deleteAction.image = UIImage(systemName: "trash")
+            deleteAction.backgroundColor = .systemRed
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+                
+        
+                do {
+                    try context.save()
+                } catch {
+                    
+                }
+                
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            return configuration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath:
+                            IndexPath) -> UISwipeActionsConfiguration? {
+        let actionisCompleted = UIContextualAction(style: .destructive, title: "isComplete") { _, _, _ in
+            
+            let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
+            
+            let thisNote: Note!
+            thisNote = noteList[indexPath.row]
+            
+            noteCell.lblTitle.text = thisNote.title
+            noteCell.lblDescription.text = thisNote.desc
+            noteCell.lblDate.text = thisNote.dueDate
+            
+            if (thisNote.isCompleted == true) {
+                let attributedString = NSMutableAttributedString(string: noteCell.lblTitle.text!)
+                attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
+                noteCell.lblTitle.attributedText = attributedString
+                
+            }
+        }
+        
+        actionisCompleted.backgroundColor = .systemYellow
+        
+        return UISwipeActionsConfiguration(actions: [actionisCompleted])
+    }
     
 }
