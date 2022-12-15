@@ -115,18 +115,33 @@ class NoteTableView: UITableViewController
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
-            -> UISwipeActionsConfiguration? {
-            let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
-                // delete the item here
+    -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
+            // delete the item here
+            
+            noteList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+            
+            completionHandler(true)
+        }
+        
+        let editaction = UIContextualAction(style: .normal, title: "Edit") { (_, _, completion) in
+            
+            
                 
-                noteList.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                tableView.reloadData()
-
-                completionHandler(true)
-            }
+            let Main = UIStoryboard(name: "Main", bundle: Bundle.main)
+                                            guard let Edit = Main.instantiateViewController(withIdentifier: "Edit") as? ViewController else {
+                                                return
+                                            }
+                                            self.navigationController?.pushViewController(Edit, animated: true)
+            
+            
+        }
             deleteAction.image = UIImage(systemName: "trash")
             deleteAction.backgroundColor = .systemRed
+            editaction.image = UIImage(systemName: "note.text")
+            editaction.backgroundColor = .systemBlue
                 
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let context: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
@@ -138,7 +153,7 @@ class NoteTableView: UITableViewController
                     
                 }
                 
-            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editaction])
             return configuration
     }
     
